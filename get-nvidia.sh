@@ -1,5 +1,32 @@
 #!/bin/bash
-VERSION=$(curl -s https://raw.githubusercontent.com/aaronp24/nvidia-versions/master/nvidia-versions.txt | grep "current official" | cut -f 3 -d " ")
+usage() { echo "Usage: $0 [-b <current|470|390|etc>] [-m <official|beta|long-lived-branch-release>]" 1>&2; exit 1; }
+
+while getopts ":b:m:" o; do
+    case "${o}" in
+        b)
+            b=${OPTARG}
+            ;;
+        m)
+            m=${OPTARG}
+            ;;
+        *)
+            usage
+            ;;
+    esac
+done
+
+if [ -z "${b}" ] && [ -z "${m}" ]; then
+    VERSION=$(curl -s https://raw.githubusercontent.com/aaronp24/nvidia-versions/master/nvidia-versions.txt | grep "current official" | cut -f 3 -d " ")
+elif [ -z "${b}" ] && [ ! -z "{m}" ]; then
+    VERSION=$(curl -s https://raw.githubusercontent.com/aaronp24/nvidia-versions/master/nvidia-versions.txt | grep "current ${m}" | cut -f 3 -d " ")
+elif [ ! -z "${b}" ] && [ -z "{m}" ]; then
+    VERSION=$(curl -s https://raw.githubusercontent.com/aaronp24/nvidia-versions/master/nvidia-versions.txt | grep "${b} official" | cut -f 3 -d " ")
+elif [ ! -z "${b}" ] && [ ! -z "{m}" ]; then
+    VERSION=$(curl -s https://raw.githubusercontent.com/aaronp24/nvidia-versions/master/nvidia-versions.txt | grep "${b} ${m}" | cut -f 3 -d " ")
+else
+    usage
+fi
+
 FILE="NVIDIA-Linux-x86_64-${VERSION}.run"
 
 download_driver () {
