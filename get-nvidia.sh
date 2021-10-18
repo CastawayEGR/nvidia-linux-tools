@@ -4,14 +4,11 @@ usage() { echo "Usage: $0 [-b <current|470|390|etc>] [-m <official|beta|long-liv
 while getopts ":b:m:" o; do
     case "${o}" in
         b)
-            b=${OPTARG}
-            ;;
+            b=${OPTARG};;
         m)
-            m=${OPTARG}
-            ;;
+            m=${OPTARG};;
         *)
-            usage
-            ;;
+            usage;;
     esac
 done
 
