@@ -17,11 +17,11 @@ done
 
 if [ -z "${b}" ] && [ -z "${m}" ]; then
     VERSION=$(curl -s https://raw.githubusercontent.com/aaronp24/nvidia-versions/master/nvidia-versions.txt | grep "current official" | cut -f 3 -d " ")
-elif [ -z "${b}" ] && [ ! -z "{m}" ]; then
+elif [ -z "${b}" ] && [ ! -z "${m}" ]; then
     VERSION=$(curl -s https://raw.githubusercontent.com/aaronp24/nvidia-versions/master/nvidia-versions.txt | grep "current ${m}" | cut -f 3 -d " ")
-elif [ ! -z "${b}" ] && [ -z "{m}" ]; then
+elif [ ! -z "${b}" ] && [ -z "${m}" ]; then
     VERSION=$(curl -s https://raw.githubusercontent.com/aaronp24/nvidia-versions/master/nvidia-versions.txt | grep "${b} official" | cut -f 3 -d " ")
-elif [ ! -z "${b}" ] && [ ! -z "{m}" ]; then
+elif [ ! -z "${b}" ] && [ ! -z "${m}" ]; then
     VERSION=$(curl -s https://raw.githubusercontent.com/aaronp24/nvidia-versions/master/nvidia-versions.txt | grep "${b} ${m}" | cut -f 3 -d " ")
 else
     usage
