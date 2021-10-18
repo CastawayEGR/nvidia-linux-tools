@@ -15,6 +15,10 @@ while getopts ":b:m:" o; do
     esac
 done
 
+if [[ "${b}" =~ [0-9] ]]; then
+    m="official"
+fi
+
 if [ -z "${b}" ] && [ -z "${m}" ]; then
     VERSION=$(curl -s https://raw.githubusercontent.com/aaronp24/nvidia-versions/master/nvidia-versions.txt | grep "current official" | cut -f 3 -d " ")
 elif [ -z "${b}" ] && [ ! -z "${m}" ]; then
